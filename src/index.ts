@@ -10,8 +10,3 @@ export const solve = (fileName: string) => {
     const mapAsGrid: MapGrid = fileAsString.split(os.EOL);
     return resolveMap(mapAsGrid);
 };
-
-const fileAsString = readFileFromMaps("example15.txt");
-    doesMapContainAllowedNumberOfStartsAndEnds(fileAsString);
-    const mapAsGrid: MapGrid = fileAsString.split(os.EOL);
-    console.log(resolveMap(mapAsGrid))

@@ -21,8 +21,8 @@ export const isPositionValid = (map: MapGrid, position: Position) => {
     return !(row < 0 || column < 0 || row >= map.length || column >= map[row].length);
 };
 
-export const isVisited = (node: Node, visited: VisitedPosition) => visited.has(node.position);
-export const addToVisited = (node: Node, visited: VisitedPosition) => visited.add(node.position);
+export const isVisited = (node: Node, visited: VisitedPosition) => visited.has(`${node.position.row} ${node.position.column}`);
+export const addToVisited = (node: Node, visited: VisitedPosition) => visited.add(`${node.position.row} ${node.position.column}`);
 
 export const getNextNodeInDirection = (map: MapGrid, node: Node, direction: Direction): Node | undefined => {
     const nextNode: Node = getNextNode(map, node, direction);

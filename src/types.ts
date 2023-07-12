@@ -10,7 +10,7 @@ export type Position = {
     column: number;
 };
 
-export type VisitedPosition = Set<Position>;
+export type VisitedPosition = Set<string>;
 
 export type NodeElement = string;
 export type MapGrid = NodeElement[];

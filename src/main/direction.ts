@@ -1,6 +1,6 @@
 import { Direction, MapGrid, Node, Position } from "../types";
 import { isPositionValid } from "./grid";
-import { isEnd, isTraversable } from "./node";
+import { isEnd, isNodeAllowed, isTurn } from "./node";
 
 const directions = Object.values(Direction);
 
@@ -24,20 +24,24 @@ export const getPossibleDirections = (map: MapGrid, node: Node, currentDirection
     let computedDirection: Direction[] = [];
     directions.forEach(direction => {
         const { column, row} = getPositionOffsetForDirection(direction);
-        const position = {
+        const nextPosition = {
             column: nodeColumn + column,
             row: nodeRow + row
         };
-        if(isPositionValid(map ,position)) {
-            const node = map[position.row][position.column];
 
-            if(isTraversable(node) || isEnd(node)) {
+        if(isPositionValid(map ,nextPosition)) {
+            const nextNode: Node = {
+                position: nextPosition,
+                value: map[nextPosition.row][nextPosition.column]
+            };
+            console.log({nextNode, direction, node})
+            if(isTurn(nextNode.value) || isEnd(nextNode.value) || isNodeAllowed(nextNode.value, direction)) {
                 const isOldDirection = currentDirection ? isOppositeDirection(currentDirection, direction) : false;
                 if(!isOldDirection) computedDirection.push(direction);
             }
         }
     });
-    console.log({computedDirection, currentDirection, node})
+
     return computedDirection;
 };
 

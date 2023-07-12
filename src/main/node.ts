@@ -1,5 +1,5 @@
 import constants from "../constants";
-import { MapGrid, NodeElement, Node, Direction, Position } from "../types";
+import { NodeElement, Direction } from "../types";
 import { isASCII } from "../utils/stringUtils";
 
 const { START, END, INTERSECTION, VERTICAL_PATH, HORIZONTAL_PATH } = constants;
@@ -11,4 +11,15 @@ export const isVertical = (value: NodeElement): boolean => value === VERTICAL_PA
 export const isHorizontal = (value: NodeElement): boolean => value === HORIZONTAL_PATH;
 export const isIntersection = (value: NodeElement): boolean => value === INTERSECTION;
 export const isBasicPathNode = (value: NodeElement): boolean => isVertical(value) || isHorizontal(value);
-export const isTraversable = (value: NodeElement): boolean => isBasicPathNode(value) || isIntersection(value) || isAllowedLetter(value);
+export const isTurn = (value: NodeElement): boolean => isIntersection(value) || isAllowedLetter(value);
+
+export const isNodeAllowed = (value: NodeElement, direction: Direction): boolean => {
+    switch(direction) {
+        case Direction.UP:
+        case Direction.DOWN:
+            return isVertical(value);
+        case Direction.LEFT:
+        case Direction.RIGHT:
+            return isHorizontal(value);
+    }
+}; 
